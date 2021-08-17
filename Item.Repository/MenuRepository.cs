@@ -1,0 +1,18 @@
+﻿using Item.Model.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Item.IRepository;
+using Item.Common.DB;
+
+namespace Item.Repository
+{
+
+    public class MenuRepository : BaseRepository<Menu>, IMenuRepository
+    {
+
+    }
+
+}

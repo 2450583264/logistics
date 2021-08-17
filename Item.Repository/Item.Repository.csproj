@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Item.Common\Item.Common.csproj" />
+    <ProjectReference Include="..\Item.IRepository\Item.IRepository.csproj" />
+    <ProjectReference Include="..\Item.Model\Item.Model.csproj" />
+  </ItemGroup>
+
+</Project>
