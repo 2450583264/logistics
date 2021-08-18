@@ -9,6 +9,9 @@ using Item.Model.Model;
 
 namespace Item.Api.Controllers
 {
+    /// <summary>
+    /// 角色菜单表
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class MenuroleController : ControllerBase
@@ -18,7 +21,7 @@ namespace Item.Api.Controllers
             menuroleService = _menuroleService;
         }
         /// <summary>
-        /// 菜单角色表
+        /// 显示菜单角色表信息
         /// </summary>
         /// <param name="RoleId"></param>
         /// <returns></returns>
