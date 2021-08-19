@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Service;
 using Microsoft.Extensions.Logging;
+using Item.Model;
 
 namespace Item.Api.Controllers
 {
@@ -18,14 +19,17 @@ namespace Item.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        
-        UsersService UsersService;
+        private readonly ILogger<UsersController> _logger;
+
+        private UsersService UsersService;
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="_usersRepository"></param>
-        public UsersController(UsersService UsersService1) {
-            UsersService = UsersService1;
+        /// <param name="usersService"></param>
+        public UsersController(UsersService usersService, ILogger<UsersController> logger) {
+            UsersService = usersService;
+
+            _logger = logger;
         }
         /// <summary>
         /// 显示用户
@@ -34,7 +38,23 @@ namespace Item.Api.Controllers
         [HttpGet]
         public IActionResult Show() {
             List<Users> list= UsersService.Show();
-            return Ok(list);
+            Result result = new Result();
+            try
+            {
+                result.Data = list;
+                result.Msg = "成功";
+                result.Code = 200;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                result.Code = 500;
+                result.Msg = "失败，请看错误信息";
+                return Ok(new { ex,result});
+                throw;
+            }
+            
+            
         }
         /// <summary>
         ///登录
@@ -44,14 +64,33 @@ namespace Item.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         public IActionResult Login(string Admin="", string Pwd="") {
-            List<Users> data = UsersService.Login(Admin,Pwd);
-            int i = data.Count();
-            if (i>0) {
-                return Ok(new {data=data,code=200,msg="成功" });
+            //_logger.LogInformation($"{Admin}在{DateTime.Now}登录了");
+            try
+            {
+                List<Users> data = UsersService.Login(Admin, Pwd);
+                Result result = new Result();
+                if (data.Count() > 0)
+                {
+                    result.Data = data;
+                    result.Code = 200;
+                    result.Msg = "登录成功";
+
+                     //_logger.LogInformation($"{DateTime.Now.ToString("yyyy年MM月dd日 hh:mm:ss")}登陆成功");
+                    return Ok(result );
+                }
+                else
+                {
+                    //_logger.LogInformation($"{DateTime.Now.ToString("yyyy年MM月dd日 hh:mm:ss")}登陆失败");
+                    return Ok(new { data = "", code = 500, msg = "失败" });
+                }
             }
-            else {
-                return Ok(new {data="",code=500,msg="失败" });
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,"错误信息");
+                throw;
             }
+           
+            
         }
 
 

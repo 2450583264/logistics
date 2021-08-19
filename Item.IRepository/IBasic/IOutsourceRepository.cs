@@ -5,9 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+namespace Item.IRepository.Basic
 {
-    public interface IMenutroleRepository:IBaseRepository<Menurole>
+    /// <summary>
+    /// 外协
+    /// </summary>
+    public interface IOutsourceRepository:IBaseRepository<Outsource>
     {
     }
 }

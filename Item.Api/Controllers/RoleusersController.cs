@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Item.Api.Controllers
 {
+    /// <summary>
+    /// 角色用户表
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class RoleusersController : ControllerBase
@@ -17,7 +20,7 @@ namespace Item.Api.Controllers
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="_menuService"></param>
+        /// <param name="_roleusersService"></param>
         public RoleusersController(RoleusersService _roleusersService)
         {
             roleusersService = _roleusersService;

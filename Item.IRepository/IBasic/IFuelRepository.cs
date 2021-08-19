@@ -5,9 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+namespace Item.IRepository.Basic
 {
-    public interface IMenutroleRepository:IBaseRepository<Menurole>
+    /// <summary>
+    /// 油费
+    /// </summary>
+    public interface IFuelRepository:IBaseRepository<Fuel>
     {
     }
 }

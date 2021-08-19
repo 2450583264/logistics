@@ -16,6 +16,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Service;
+using Item.Repository;
+using Service.BasicService;
 
 namespace Item.Api
 {
@@ -38,6 +40,11 @@ namespace Item.Api
             services.AddTransient<RoleusersService>();
             services.AddTransient<MenuroleService>();
             services.AddTransient<MenuService>();
+            services.AddTransient<FuelService>();
+            services.AddTransient<OutsourceService>();
+            services.AddTransient<PathService>();
+            services.AddTransient<ShipperService>();
+            services.AddTransient<VehicleService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -62,10 +69,17 @@ namespace Item.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Item.Api v1"));
             }
-;
+
 
             //跨域设置
-            app.UseCors(x => x.AllowAnyOrigin());
+            //配置Cors
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+
+                builder.AllowAnyOrigin();
+            });
 
             app.UseHttpsRedirection();
 
@@ -84,6 +98,17 @@ namespace Item.Api
             
             var file = System.IO.Path.Combine(AppContext.BaseDirectory, "Item.Repository.dll");
             build.RegisterAssemblyTypes(Assembly.LoadFile(file)).AsImplementedInterfaces();
+            //这里修改还没有完善
+            //build.RegisterAssemblyTypes(typeof(UsersRepository).Assembly)
+            //     .Where(x => x.Name.EndsWith("Repository"))
+            //     .AsImplementedInterfaces();
+
+            //build.RegisterAssemblyTypes(typeof(UsersService).Assembly)
+            //     .Where(x => x.Name.EndsWith("Service"))
+            //     .AsImplementedInterfaces();
+
+            //var file1 = System.IO.Path.Combine(AppContext.BaseDirectory, "Service.dll");
+            //build.RegisterAssemblyTypes(Assembly.LoadFile(file1)).AsImplementedInterfaces();
 
         }
     }
