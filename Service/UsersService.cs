@@ -24,8 +24,9 @@ namespace Service
             List<Users> list = usersRepository.Show(sql);
             return list;
         }
-        public new List<Users> Login(string Admin, string Pwd) {
-            return usersRepository.Login(Admin,Pwd);
+        public List<Users> Login(string Admin, string Pwd) {
+            string sql = "select * from users where Admin=@Admin and Pwd=@Pwd";
+            return usersRepository.Login(sql, new { @Admin = Admin, @Pwd = Pwd });
         }
     }
 }

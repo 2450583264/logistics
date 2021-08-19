@@ -16,7 +16,7 @@ namespace Item.Model.Model
         public string Plate_Number { get; set; }    //车牌号
         public string Name { get; set; }            //司机姓名
         public string Company { get; set; }         //所属公司
-        public float Long_g  { get; set; }          //车型长
+        public float @long  { get; set; }          //车型长
         public float Wide { get; set; }             //宽
         public float Tall { get; set; }             //高
         public string Color { get; set; }           //车辆颜色

@@ -23,9 +23,10 @@ namespace Item.Api.Controllers.BasicControllers
             vehicleService = _vehicleService;
         }
         /// <summary>
-        /// 显示所有车辆
+        /// 显示车辆
         /// </summary>
         /// <returns></returns>
+        [Route("Show")]
         [HttpGet]
         public IActionResult Show() {
             try
@@ -44,6 +45,7 @@ namespace Item.Api.Controllers.BasicControllers
         /// </summary>
         /// <param name="vehicle"></param>
         /// <returns></returns>
+        [Route("Add")]
         [HttpPost]
         public IActionResult Add(Vehicle vehicle) {
             try
@@ -56,6 +58,44 @@ namespace Item.Api.Controllers.BasicControllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// 车辆删除
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("Delect")]
+        [HttpPost]
+        public IActionResult Delect(string Id) {
+            try
+            {
+                return Ok(vehicleService.Delect(Id));
+            }
+            catch (Exception ex) 
+            {
+                return Ok(ex);
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// 车辆修改
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("Update")]
+        [HttpPost]
+        public IActionResult Update(Vehicle vehicle,int Id)
+        {
+            try
+            {
+                return Ok(vehicleService.Update(vehicle,Id));
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex);
+                throw;
+            }
+        }
     }
 }

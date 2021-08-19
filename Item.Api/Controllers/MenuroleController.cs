@@ -28,7 +28,7 @@ namespace Item.Api.Controllers
         [HttpGet]
         public IActionResult ShowMenurole(int RoleId)
         {
-            List<Menu> data = menuroleService.showMenurole(RoleId);
+            List<Menurole> data = menuroleService.showMenurole(RoleId);
             string d = "";
             foreach (var item in data)
             {

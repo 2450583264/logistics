@@ -15,7 +15,13 @@ namespace Item.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args)    //产生一个IHostBuilder实例hostBuilder ,创建通用主机
+                .Build()               //Build() 运行给定操作以初始化主机  这个只能调用一次
+                .Run();                //运行应用程序并阻止调用线程，直至主机关闭
+            //IHostBuilder hostBuilder = CreateHostBuilder(args);
+            //IHost host = hostBuilder.Build();
+            //host.Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

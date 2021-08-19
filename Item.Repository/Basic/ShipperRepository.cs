@@ -10,6 +10,21 @@ namespace Item.Repository.Basic
 {
     public class ShipperRepository : BaseRepository<Shipper>, IShipperRepository
     {
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<Shipper> Show(string sql)
+        {
+            List<Shipper> shippers = Show(sql);
+            return shippers;
+        }
 
+        public bool RUD(string sql)
+        {
+            bool _bool = RUD(sql);
+            return _bool;
+        }
     }
 }

@@ -10,5 +10,21 @@ namespace Item.Repository.Basic
 {
     public class FuelRepository : BaseRepository<Fuel>, IFuelRepository
     {
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<Fuel> Show(string sql)
+        {
+            List<Fuel> fuels = Show(sql);
+            return fuels;
+        }
+
+        public bool RUD(string sql)
+        {
+            bool _bool = RUD(sql);
+            return _bool;
+        }
     }
 }

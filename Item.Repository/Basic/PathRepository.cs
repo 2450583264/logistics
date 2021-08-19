@@ -10,5 +10,21 @@ namespace Item.Repository.Basic
 {
     public class PathRepository : BaseRepository<Path>, IPathRepository
     {
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<Path> Show(string sql)
+        {
+            List<Path> paths = Show(sql);
+            return paths;
+        }
+
+        public bool RUD(string sql)
+        {
+            bool _bool = RUD(sql);
+            return _bool;
+        }
     }
 }

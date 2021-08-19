@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Service
 {
-    public class MenuService : MenuRepository
+    public class MenuService
     {
         IMenuRepository menuRepository;
         /// <summary>

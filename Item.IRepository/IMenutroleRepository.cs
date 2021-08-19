@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Item.IRepository
 {
-    public interface IMenutroleRepository:IBaseRepository<Menu>
+    public interface IMenutroleRepository:IBaseRepository<Menurole>
     {
     }
 }
