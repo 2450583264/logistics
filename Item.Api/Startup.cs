@@ -22,6 +22,7 @@ using Item.Common.Token;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
+using Item.Api.Filter;
 
 namespace Item.Api
 {
@@ -77,12 +78,17 @@ namespace Item.Api
                 };
             });
 
-       
+
             #endregion
 
+            #region  全局异常过滤器注入
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new CustomerExceptionFilter());
+            });
+            #endregion
 
-
-            services.AddControllers();
+            //services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "浩接口", Version = "v1" });
@@ -108,6 +114,7 @@ namespace Item.Api
                     Type = SecuritySchemeType.ApiKey
                 });
                 #endregion
+
             });
         }
 
