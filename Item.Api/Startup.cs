@@ -18,6 +18,10 @@ using System.Threading.Tasks;
 using Service;
 using Item.Repository;
 using Service.BasicService;
+using Item.Common.Token;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Item.Api
 {
@@ -45,6 +49,38 @@ namespace Item.Api
             services.AddTransient<PathService>();
             services.AddTransient<ShipperService>();
             services.AddTransient<VehicleService>();
+            services.AddTransient<Token>();
+
+
+            #region JWT生成码
+            var jwtConfig = Configuration.GetSection("Jwt");
+            //生成密钥
+            var symmetricKeyAsBase64 = jwtConfig.GetValue<string>("Secret");
+            var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
+            var signingKey = new SymmetricSecurityKey(keyByteArray);
+            //认证参数
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer(o =>
+            {
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = false,//是否验证签名,不验证的画可以篡改数据，不安全在Configure方法添加认证方法
+                    //4、生成Jwt的Token令牌
+                    IssuerSigningKey = signingKey,//解密的密钥
+                    ValidateIssuer = true,//是否验证发行人，就是验证载荷中的Iss是否对应ValidIssuer参数
+                    ValidIssuer = jwtConfig.GetValue<string>("Iss"),//发行人
+                    ValidateAudience = true,//是否验证订阅人，就是验证载荷中的Aud是否对应ValidAudience参数
+                    ValidAudience = jwtConfig.GetValue<string>("Aud"),//订阅人
+                    ValidateLifetime = true,//是否验证过期时间，过期了就拒绝访问
+                    ClockSkew = TimeSpan.Zero,//这个是缓冲过期时间，也就是说，即使我们配置了过期时间，这里也要考虑进去，过期时间 + 缓冲，默认好像是7分钟，你可以直接设置为0
+                    RequireExpirationTime = true,
+                };
+            });
+
+       
+            #endregion
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -56,6 +92,22 @@ namespace Item.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 // 添加控制器层注释，true表示显示控制器注释
                 c.IncludeXmlComments(xmlPath, true);
+
+
+                #region swagger用JWT验证
+                //开启权限小锁
+                c.OperationFilter<AddResponseHeadersFilter>();
+                c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+                //在header中添加token，传递到后台
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "JWT授权(数据将在请求头中进行传递)直接在下面框中输入Bearer {token}(注意两者之间是一个空格) \"",
+                    Name = "Authorization",// t默认的参数名称
+                    In = ParameterLocation.Header,// t默认存放Authorization信息的位置(请求头中)
+                    Type = SecuritySchemeType.ApiKey
+                });
+                #endregion
             });
         }
 
@@ -84,6 +136,9 @@ namespace Item.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication(); //这个是添加认证的
+            app.UseAuthorization(); //这个是方法里自带的授权
 
             app.UseAuthorization();
 
