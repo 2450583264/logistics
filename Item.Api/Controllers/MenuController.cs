@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Service;
 using Item.Common.DB;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Item.Api.Controllers
 {
@@ -16,6 +17,7 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class MenuController : ControllerBase
     {
 

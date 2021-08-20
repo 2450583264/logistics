@@ -1,4 +1,5 @@
 ﻿using Item.Model.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -14,6 +15,7 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RoleusersController : ControllerBase
     {
         RoleusersService roleusersService;

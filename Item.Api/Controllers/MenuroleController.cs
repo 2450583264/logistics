@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Service;
 using Item.Model.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Item.Api.Controllers
 {
@@ -14,6 +15,7 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MenuroleController : ControllerBase
     {
         MenuroleService menuroleService;

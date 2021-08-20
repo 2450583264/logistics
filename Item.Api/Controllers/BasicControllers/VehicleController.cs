@@ -1,5 +1,6 @@
 ﻿using Item.Model;
 using Item.Model.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -15,6 +16,7 @@ namespace Item.Api.Controllers.BasicControllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VehicleController : ControllerBase
     {
 
