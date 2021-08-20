@@ -10,6 +10,6 @@ namespace Item.IRepository
     public interface IUsersRepository:IBaseRepository<Users>
     {
         //登录
-        List<Users> Login(string Admin,string Pwd);  
+        List<Users> Login(string sql,object param = null);  
     }
 }

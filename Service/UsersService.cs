@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Service
 {
-    public class UsersService : UsersRepository
+    public class UsersService
     {
         IUsersRepository usersRepository;
         /// <summary>
@@ -20,12 +20,13 @@ namespace Service
 
         public List<Users> Show()
         {
-            string sql =$"select * from Users";
+            string sql = $"select * from Users";
             List<Users> list = usersRepository.Show(sql);
             return list;
         }
         public List<Users> Login(string Admin, string Pwd) {
-            return usersRepository.Login(Admin,Pwd);
+            string sql = "select * from users where Admin=@Admin and Pwd=@Pwd";
+            return usersRepository.Login(sql, new { @Admin = Admin, @Pwd = Pwd });
         }
     }
 }

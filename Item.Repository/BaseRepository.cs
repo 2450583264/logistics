@@ -13,9 +13,9 @@ namespace Item.Repository
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public int RUD(string sql, object param = null)
+        public bool RUD(string sql, object param = null)
         {
-            return Dapper<T>.RUD(sql, param);
+            return Dapper<T>.RUD(sql, param)>0?true:false;
         }
 
         /// <summary>

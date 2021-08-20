@@ -12,7 +12,22 @@ namespace Item.Repository
 
     public class MenuRepository : BaseRepository<Menu>, IMenuRepository
     {
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<Menu> Show(string sql)
+        {
+            List<Menu> menus = Show(sql);
+            return menus;
+        }
 
+        public bool RUD(string sql)
+        {
+            bool _bool = RUD(sql);
+            return _bool;
+        }
     }
 
 }

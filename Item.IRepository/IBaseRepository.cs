@@ -9,7 +9,7 @@ namespace Item.IRepository
     /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T> where T : class, new()
     {
-        int RUD(string sql, object param = null);
+        bool RUD(string sql, object param = null);
 
         List<T> Show(string sql, object param = null);
 
