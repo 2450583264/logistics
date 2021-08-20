@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Service;
 using Microsoft.Extensions.Logging;
 using Item.Model;
+using Item.Common.Token;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Item.Api.Controllers
 {
@@ -17,26 +19,32 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    //[Authorize]         //添加权限特效
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
+        private readonly Token token;
 
         private UsersService UsersService;
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="usersService"></param>
-        public UsersController(UsersService usersService, ILogger<UsersController> logger) {
+        public UsersController(UsersService usersService, ILogger<UsersController> logger, Token _token) {
             UsersService = usersService;
 
             _logger = logger;
+
+            token = _token;
         }
         /// <summary>
         /// 显示用户
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public IActionResult Show() {
+            
             List<Users> list= UsersService.Show();
             Result result = new Result();
             try
@@ -44,6 +52,7 @@ namespace Item.Api.Controllers
                 result.Data = list;
                 result.Msg = "成功";
                 result.Code = 200;
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -63,6 +72,7 @@ namespace Item.Api.Controllers
         /// <param name="Pwd"></param>
         /// <returns></returns>
         [HttpGet]
+        
         public IActionResult Login(string Admin="", string Pwd="") {
             //_logger.LogInformation($"{Admin}在{DateTime.Now}登录了");
             try
@@ -76,7 +86,7 @@ namespace Item.Api.Controllers
                     result.Msg = "登录成功";
 
                      //_logger.LogInformation($"{DateTime.Now.ToString("yyyy年MM月dd日 hh:mm:ss")}登陆成功");
-                    return Ok(result );
+                    return Ok(new {result,token = token.Authenticate() });
                 }
                 else
                 {

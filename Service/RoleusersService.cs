@@ -16,9 +16,9 @@ namespace Service
         {
             roleusersRepository = _roleusersRepository;
         }
-        public List<Roleusers> ShowRoleusers(){
-            string sql = "select * from Roleusers";
-            List<Roleusers> list = roleusersRepository.Show(sql);
+        public List<Roleusers> ShowRoleusers(int Id) {
+            string sql = "select * from Roleusers where usersId=@usersId";
+            List<Roleusers> list = roleusersRepository.Show(sql, new { @usersId=Id });
             return list;
         }
     }
