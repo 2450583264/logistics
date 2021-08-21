@@ -22,6 +22,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Item.Common.Token;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Item.Api.Filter;
 
 namespace Item.Api
 {
@@ -37,6 +38,23 @@ namespace Item.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region 全局异常过滤器
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<CustomerExceptionFilter>();
+            });
+            //services.AddControllers(options =>
+            //{
+            //    options.Filters.Add(new CustomerExceptionFilter());
+            //});
+            //过滤器
+            //services.AddMvc(
+            // options =>
+            // {
+            //     options.Filters.Add<HttpGlobalExceptionFilter>();//全局注册
+            // });
+            #endregion
+
 
             var jwtConfig = Configuration.GetSection("Jwt");
             //生成密钥
@@ -110,7 +128,8 @@ namespace Item.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app
-                             , IWebHostEnvironment env)
+                             , IWebHostEnvironment env
+                              ,ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -119,6 +138,8 @@ namespace Item.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Item.Api v1"));
             }
 
+            //日志
+            loggerFactory.AddLog4Net();
 
             //跨域设置
             //配置Cors

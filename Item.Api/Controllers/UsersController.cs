@@ -30,6 +30,8 @@ namespace Item.Api.Controllers
         /// 构造函数
         /// </summary>
         /// <param name="usersService"></param>
+        /// <param name="logger"></param>
+        /// <param name="_token"></param>
         public UsersController(UsersService usersService, ILogger<UsersController> logger, Token _token) {
             UsersService = usersService;
 
@@ -72,7 +74,7 @@ namespace Item.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         public IActionResult Login(string Admin="", string Pwd="") {
-            //_logger.LogInformation($"{Admin}在{DateTime.Now}登录了");
+            _logger.LogInformation($"{Admin}在{DateTime.Now}登录了");
             try
             {
                 List<Users> data = UsersService.Login(Admin, Pwd);
