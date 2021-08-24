@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+
+namespace Item.IRepository.IFinance
 {
-    //菜单角色
-    public interface IMenutroleRepository:IBaseRepository<Menurole>
+    /// <summary>
+    /// 进程发票
+    /// </summary>
+    public interface ICourseRepository:IBaseRepository<Course>
     {
     }
 }

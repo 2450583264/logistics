@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+namespace Item.IRepository.IPersonnel
 {
-    //菜单角色
-    public interface IMenutroleRepository:IBaseRepository<Menurole>
+    /// <summary>
+    /// 员工登记
+    /// </summary>
+    public interface IStaffRepository:IBaseRepository<Staff>
     {
     }
 }

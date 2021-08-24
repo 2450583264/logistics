@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+namespace Item.IRepository.IMatter
 {
-    //菜单角色
-    public interface IMenutroleRepository:IBaseRepository<Menurole>
+    /// <summary>
+    /// 物质领用
+    /// </summary>
+    public interface IReceiveRepository:IBaseRepository<Receive>
     {
     }
 }

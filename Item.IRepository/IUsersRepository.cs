@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Item.IRepository
 {
+    //用户
     public interface IUsersRepository:IBaseRepository<Users>
     {
         //登录

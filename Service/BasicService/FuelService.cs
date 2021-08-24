@@ -36,11 +36,10 @@ namespace Service.BasicService
         //添加
         public Result Add(Fuel fuel)
         {
-            string sql = $"insert into Vehicle values(null,@fuelId,@plate_number,@cost,@oil_mass,@km,@pay,@broker,@comment,@creation_time)";
+            string sql = $"insert into Vehicle values(null,@plate_number,@cost,@oil_mass,@km,@pay,@broker,@comment,@creation_time)";
             Result result = new Result();
             bool _bool = fuelRepository.RUD(sql, new
             {
-                @fuelId= fuel.FuelId,
                 @plate_number=fuel.Plate_number,
                 @cost=fuel.Cost,
                 @oil_mass=fuel.Cost,
@@ -66,7 +65,7 @@ namespace Service.BasicService
         //批删（可用于单删）
         public Result Delect(string Id)
         {
-            string sql = "delete from vehicle where fuel in(@FuelId)";
+            string sql = "delete from vehicle where fuelId in(@FuelId)";
             Result result = new Result();
             bool _bool = fuelRepository.RUD(sql, new { @FuelId = Id });
             if (_bool == true)
@@ -85,7 +84,7 @@ namespace Service.BasicService
         //修改
         public Result Update(Fuel fuel, int Id)
         {
-            string sql = " update students set plate_number=@plate_number,cost=@cost,oil_mass=@oil_mass,km=@km,pay=@pay,broker=@broker,comment=@comment,creation_time=@creation_time where fuelId =@fuelId ";
+            string sql = " update fuel set plate_number=@plate_number,cost=@cost,oil_mass=@oil_mass,km=@km,pay=@pay,broker=@broker,comment=@comment,creation_time=@creation_time where fuelId =@fuelId ";
             Result result = new Result();
             bool _bool = fuelRepository.RUD(sql, new
             {

@@ -1,15 +1,13 @@
-﻿using Item.Model.Model;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Item.IRepository
+namespace Service.TrackService
 {
-    //菜单
-    public interface IMenuRepository : IBaseRepository<Menu>
+    public class Carriage_TrackService
     {
-
     }
 }
