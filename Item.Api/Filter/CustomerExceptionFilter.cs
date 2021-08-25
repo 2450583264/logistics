@@ -55,6 +55,7 @@ namespace Item.Api.Filter
                 };
             }
             // 设置为true，表示异常已经被处理了
+            //当你处理完异常之后，一定要将此属性更改为true，表示异常已经处理过了，这样其他地方就不会在处理这个异常了
             context.ExceptionHandled = true;
             return Task.CompletedTask;
         }

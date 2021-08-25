@@ -1,4 +1,5 @@
-﻿using Item.Model.Model;
+﻿using Item.Model;
+using Item.Model.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,6 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class RoleusersController : ControllerBase
     {
         RoleusersService roleusersService;
@@ -27,13 +27,16 @@ namespace Item.Api.Controllers
         {
             roleusersService = _roleusersService;
         }
+        
         /// <summary>
-        /// 显示角色用户表
+        /// 角色用户查询
         /// </summary>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult ShowRoleusers() {
-            List<Roleusers> data = roleusersService.ShowRoleusers();
+        public IActionResult ShowRoleusers(int Id) {
+            List<Roleusers> data = roleusersService.ShowRoleusers(Id);
+            Result result = new Result();
             return Ok(new { data=data});
         }
     }

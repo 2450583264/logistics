@@ -21,34 +21,29 @@ namespace Service.BasicService
         {
             fuelRepository = _fuelRepository;
         }
-
         //显示
-        public Result Show()
-        {
-            string sql = "select * from fue";
-            List<Fuel> fuels= fuelRepository.Show(sql);
+        public Result Show() {
+            string sql = "select * from Fuel";
+            List<Fuel> fuels = fuelRepository.Show(sql);
             Result result = new Result();
-            result.Code = 200;
             result.Data = fuels;
-            result.Msg = "查询成功";
+            result.Code = 200;
             return result;
         }
         //添加
-        public Result Add(Fuel fuel)
-        {
-            string sql = $"insert into Vehicle values(null,@plate_number,@cost,@oil_mass,@km,@pay,@broker,@comment,@creation_time)";
+        public Result Add(Fuel fuel) {
+            string sql = "insert into Fuel values(null,@plate_number,@cost,@oil_mass,@km,@pay,@broker,@comment,@creation_time)";
             Result result = new Result();
-            bool _bool = fuelRepository.RUD(sql, new
+            bool _bool = fuelRepository.RUD(sql,new 
             {
                 @plate_number=fuel.Plate_number,
                 @cost=fuel.Cost,
-                @oil_mass=fuel.Cost,
+                @oil_mass=fuel.Oil_Mass,
                 @km=fuel.Km,
                 @pay=fuel.Pay,
                 @broker=fuel.Broker,
                 @comment=fuel.Comment,
                 @creation_time=fuel.Creation_Time
-
             });
             if (_bool == true)
             {
@@ -65,9 +60,9 @@ namespace Service.BasicService
         //批删（可用于单删）
         public Result Delect(string Id)
         {
-            string sql = "delete from vehicle where fuelId in(@FuelId)";
+            string sql = "delete from Fuel where vehicleId in(@fuelId)";
             Result result = new Result();
-            bool _bool = fuelRepository.RUD(sql, new { @FuelId = Id });
+            bool _bool = fuelRepository.RUD(sql, new { @fuelId = Id });
             if (_bool == true)
             {
                 result.Msg = "删除成功";
@@ -82,22 +77,21 @@ namespace Service.BasicService
 
         }
         //修改
-        public Result Update(Fuel fuel, int Id)
+        public Result Update(Fuel  fuel, int Id)
         {
-            string sql = " update fuel set plate_number=@plate_number,cost=@cost,oil_mass=@oil_mass,km=@km,pay=@pay,broker=@broker,comment=@comment,creation_time=@creation_time where fuelId =@fuelId ";
+            string sql = " update Fuel set plate_number=@plate_number,cost=@cost,oil_mass=@oil_mass,km=@km,pay=@pay,broker=@broker,comment=@comment,creation_time=@creation_time where fuelId=@fuelId";
             Result result = new Result();
             bool _bool = fuelRepository.RUD(sql, new
             {
-                
-                @plate_number = fuel.Plate_number,
-                @cost = fuel.Cost,
-                @oil_mass = fuel.Cost,
-                @km = fuel.Km,
-                @pay = fuel.Pay,
-                @broker = fuel.Broker,
-                @comment = fuel.Comment,
-                @creation_time = fuel.Creation_Time,
-                @fuelId = Id
+                @plate_number=fuel.Plate_number,
+                @cost=fuel.Cost,
+                @oil_mass=fuel.Oil_Mass,
+                @km=fuel.Km,
+                @pay=fuel.Pay,
+                @broker=fuel.Broker,
+                @comment=fuel.Comment,
+                @creation_time=fuel.Creation_Time,
+                @fuelId=Id
             });
             if (_bool == true)
             {

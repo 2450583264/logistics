@@ -39,12 +39,13 @@ namespace Item.Common.Token
                 new Claim(ClaimTypes.Role,"admin"),
             };
             SecurityToken securityToken = new JwtSecurityToken(
-            signingCredentials: securityKey,
-            expires: DateTime.Now.AddMinutes(2),//过期时间
-            claims: claims
-        );
+                signingCredentials: securityKey,
+                expires: DateTime.Now.AddMinutes(2),//过期时间
+                claims: claims
+            );
             //生成jwt令牌
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
+
         }
     }
 }

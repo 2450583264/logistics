@@ -19,9 +19,11 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    //[Authorize]         //添加权限特效
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
+        private readonly Token token;
 
         private readonly Token token;
 
@@ -46,6 +48,7 @@ namespace Item.Api.Controllers
         [HttpGet]
         [Authorize]
         public IActionResult Show() {
+            
             List<Users> list= UsersService.Show();
             Result result = new Result();
             try
@@ -73,6 +76,7 @@ namespace Item.Api.Controllers
         /// <param name="Pwd"></param>
         /// <returns></returns>
         [HttpGet]
+        
         public IActionResult Login(string Admin="", string Pwd="") {
             _logger.LogInformation($"{Admin}在{DateTime.Now}登录了");
             try

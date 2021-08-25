@@ -1,6 +1,4 @@
-﻿using Item.Model.Model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.BasicService;
 using System;
@@ -15,7 +13,6 @@ namespace Item.Api.Controllers.BasicControllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class FuelController : ControllerBase
     {
         private FuelService fuelService;

@@ -13,7 +13,6 @@ namespace Item.Api.Controllers.BasicControllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PathController : ControllerBase
     {
     }
