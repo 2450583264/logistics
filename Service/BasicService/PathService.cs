@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.BasicService
 {
-    public class PathService:PathRepository
+    public class PathService
     {
         IPathRepository pathRepository;
         /// <summary>

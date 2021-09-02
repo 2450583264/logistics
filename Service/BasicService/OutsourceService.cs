@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.BasicService
 {
-    public class OutsourceService: OutsourceRepository
+    public class OutsourceService
     {
         IOutsourceRepository outsourceRepository;
         /// <summary>

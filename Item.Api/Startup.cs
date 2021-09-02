@@ -23,11 +23,7 @@ using Item.Common.Token;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Item.Api.Filter;
-using Item.Common.Token;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Filters;
-using Item.Api.Filter;
+using Service.AuditService;
 
 namespace Item.Api
 {
@@ -97,48 +93,51 @@ namespace Item.Api
             services.AddTransient<RoleusersService>();
             services.AddTransient<MenuroleService>();
             services.AddTransient<MenuService>();
-            services.AddTransient<FuelService>();
-            services.AddTransient<OutsourceService>();
-            services.AddTransient<PathService>();
-            services.AddTransient<ShipperService>();
+            services.AddTransient<Service.BasicService.FuelService>();
+            services.AddTransient<Service.BasicService.OutsourceService>();
+            services.AddTransient<Service.BasicService.PathService>();
+            services.AddTransient<Service.BasicService.ShipperService>();
             services.AddTransient<VehicleService>();
+            services.AddTransient<Service.AuditService.CarriagerService>();
+            services.AddTransient<Service.AuditService.DimissionService>();
+            services.AddTransient<Service.AuditService.EntryService>();
+            services.AddTransient<Service.AuditService.GeneralService>();
+            services.AddTransient<Service.AuditService.PaymentService>();
+            services.AddTransient<Service.AuditService.ProcurementService>();
+            services.AddTransient<Service.AuditService.ReceiveService>();
+            services.AddTransient<Service.AuditService.RegularizationService>();
+            services.AddTransient<Service.AuditService.ShipperService>();
+       
             services.AddTransient<Token>();
 
 
-            #region JWT生成码
-            var jwtConfig = Configuration.GetSection("Jwt");
-            //生成密钥
-            var symmetricKeyAsBase64 = jwtConfig.GetValue<string>("Secret");
-            var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
-            var signingKey = new SymmetricSecurityKey(keyByteArray);
-            //认证参数
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer(o =>
-            {
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = false,//是否验证签名,不验证的画可以篡改数据，不安全在Configure方法添加认证方法
-                    //4、生成Jwt的Token令牌
-                    IssuerSigningKey = signingKey,//解密的密钥
-                    ValidateIssuer = true,//是否验证发行人，就是验证载荷中的Iss是否对应ValidIssuer参数
-                    ValidIssuer = jwtConfig.GetValue<string>("Iss"),//发行人
-                    ValidateAudience = true,//是否验证订阅人，就是验证载荷中的Aud是否对应ValidAudience参数
-                    ValidAudience = jwtConfig.GetValue<string>("Aud"),//订阅人
-                    ValidateLifetime = true,//是否验证过期时间，过期了就拒绝访问
-                    ClockSkew = TimeSpan.Zero,//这个是缓冲过期时间，也就是说，即使我们配置了过期时间，这里也要考虑进去，过期时间 + 缓冲，默认好像是7分钟，你可以直接设置为0
-                    RequireExpirationTime = true,
-                };
-            });
+            //#region JWT生成码
+            //var jwtConfig = Configuration.GetSection("Jwt");
+            ////生成密钥
+            //var symmetricKeyAsBase64 = jwtConfig.GetValue<string>("Secret");
+            //var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
+            //var signingKey = new SymmetricSecurityKey(keyByteArray);
+            ////认证参数
+            //services.AddAuthentication("Bearer")
+            //.AddJwtBearer(o =>
+            //{
+            //    o.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = false,//是否验证签名,不验证的画可以篡改数据，不安全在Configure方法添加认证方法
+            //        //4、生成Jwt的Token令牌
+            //        IssuerSigningKey = signingKey,//解密的密钥
+            //        ValidateIssuer = true,//是否验证发行人，就是验证载荷中的Iss是否对应ValidIssuer参数
+            //        ValidIssuer = jwtConfig.GetValue<string>("Iss"),//发行人
+            //        ValidateAudience = true,//是否验证订阅人，就是验证载荷中的Aud是否对应ValidAudience参数
+            //        ValidAudience = jwtConfig.GetValue<string>("Aud"),//订阅人
+            //        ValidateLifetime = true,//是否验证过期时间，过期了就拒绝访问
+            //        ClockSkew = TimeSpan.Zero,//这个是缓冲过期时间，也就是说，即使我们配置了过期时间，这里也要考虑进去，过期时间 + 缓冲，默认好像是7分钟，你可以直接设置为0
+            //        RequireExpirationTime = true,
+            //    };
+            //});
 
+            //#endregion
 
-            #endregion
-
-            #region  全局异常过滤器注入
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new CustomerExceptionFilter());
-            });
-            #endregion
 
             //services.AddControllers();
             services.AddSwaggerGen(c =>

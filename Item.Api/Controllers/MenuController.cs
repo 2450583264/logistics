@@ -17,6 +17,7 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]         //添加权限特效
     public class MenuController : ControllerBase
     {
 

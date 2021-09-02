@@ -30,4 +30,11 @@
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\ContractControllers\" />
+    <Folder Include="Controllers\FinanceControllers\" />
+    <Folder Include="Controllers\VindicateControllers\" />
+    <Folder Include="Controllers\TrackControllers\" />
+  </ItemGroup>
+
 </Project>

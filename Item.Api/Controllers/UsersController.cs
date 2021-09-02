@@ -25,7 +25,7 @@ namespace Item.Api.Controllers
         private readonly ILogger<UsersController> _logger;
         private readonly Token token;
 
-        private readonly Token token;
+        // private readonly Token token;
 
         private UsersService UsersService;
         /// <summary>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Service.BasicService
 {
-    public class FuelService:FuelRepository
+    public class FuelService
     {
         IFuelRepository fuelRepository;
         /// <summary>

@@ -15,6 +15,7 @@ namespace Item.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]         //添加权限特效
     public class MenuroleController : ControllerBase
     {
         MenuroleService menuroleService;

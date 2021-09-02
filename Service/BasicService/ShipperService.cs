@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.BasicService
 {
-    public class ShipperService:ShipperRepository
+    public class ShipperService
     {
         IShipperRepository shipperRepository;
         /// <summary>

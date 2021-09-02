@@ -1,48 +1,48 @@
 ﻿using Item.Model.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Service.BasicService;
+using Service.AuditService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Item.Api.Controllers.BasicControllers
+namespace Item.Api.Controllers.AuditControllers
 {
     /// <summary>
-    /// 油费
+    /// 领用审批
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class FuelController : ControllerBase
+    public class ReceiveController : ControllerBase
     {
-        private FuelService fuelService;
-        public FuelController(FuelService _fuelService)
+        private ReceiveService receiveService;
+        public ReceiveController(ReceiveService _receiveService)
         {
-            fuelService = _fuelService;
+            receiveService = _receiveService;
         }
         /// <summary>
-        /// 显示油费
+        /// Show
         /// </summary>
         /// <returns></returns>
         [Route("Show")]
         [HttpGet]
         public IActionResult Show()
         {
-            return Ok(fuelService.Show()); 
+            return Ok(receiveService.Show());
         }
         /// <summary>
-        /// 油费添加
+        /// Add
         /// </summary>
-        /// <param name="fuel"></param>
+        /// <param name="receive_Approval"></param>
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]
-        public IActionResult Add(Fuel fuel)
+        public IActionResult Add(Receive_approval receive_Approval)
         {
             try
             {
-                return Ok(fuelService.Add(fuel));
+                return Ok(receiveService.Add(receive_Approval));
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace Item.Api.Controllers.BasicControllers
             }
         }
         /// <summary>
-        /// 删除
+        /// Delete
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -61,7 +61,7 @@ namespace Item.Api.Controllers.BasicControllers
         {
             try
             {
-                return Ok(fuelService.Delect(Id));
+                return Ok(receiveService.Delect(Id));
             }
             catch (Exception ex)
             {
@@ -71,18 +71,18 @@ namespace Item.Api.Controllers.BasicControllers
         }
 
         /// <summary>
-        /// 修改
+        /// UPdate
         /// </summary>
-        /// <param name="fuel"></param>
+        /// <param name="receive_Approval"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
         [Route("Update")]
         [HttpPost]
-        public IActionResult Update(Fuel fuel, int Id)
+        public IActionResult Update(Receive_approval receive_Approval, int Id)
         {
             try
             {
-                return Ok(fuelService.Update(fuel, Id));
+                return Ok(receiveService.Update(receive_Approval, Id));
             }
             catch (Exception ex)
             {
@@ -90,8 +90,5 @@ namespace Item.Api.Controllers.BasicControllers
                 throw;
             }
         }
-
-
-
     }
 }
